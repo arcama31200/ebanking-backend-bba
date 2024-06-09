@@ -23,7 +23,8 @@ public class Operation {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Temporal(value = TemporalType.DATE)
-	private Date dateCreation;
+	private Date dateOperation;
+	private double amount;
 	@Enumerated(value = EnumType.STRING)
 	private OperationType typeOperation;
 	private String description;
