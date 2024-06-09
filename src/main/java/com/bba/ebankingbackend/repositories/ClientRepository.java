@@ -9,6 +9,6 @@ import com.bba.ebankingbackend.entities.Client;
 import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    @Query("select c from Customer c where c.name like :kw")
+    @Query("select c from Client c where c.nom like :kw")
     List<Client> searchCustomer(@Param("kw") String keyword);
 }
