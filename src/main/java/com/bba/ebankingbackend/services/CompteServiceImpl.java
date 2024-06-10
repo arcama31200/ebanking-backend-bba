@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service @AllArgsConstructor @Transactional @Slf4j
 public class CompteServiceImpl implements CompteService{
+	@Autowired
 	private CompteRepository compteRepository;
+	@Autowired
 	private BankAccountMapperImpl bankAccountMapperImpl;
+	@Autowired
 	private ClientRepository clientRepository;
+	@Autowired
 	private AccountOperationRepository accountOperationRepository;
 
 	@Override
@@ -90,7 +95,7 @@ public class CompteServiceImpl implements CompteService{
 	public AccountHistoryDTO getAccountHistory(String accountId, int page, int size)
 			throws BankAccountNotFoundException {
 		Compte bankAccount= compteRepository.findById(accountId).orElseThrow(()->new BankAccountNotFoundException("Account not Found"));;
-        Page<Operation> accountOperations = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page, size));
+        Page<Operation> accountOperations = accountOperationRepository.findByCompteIdOrderByDateOperationDesc(accountId, PageRequest.of(page, size));
         AccountHistoryDTO accountHistoryDTO=new AccountHistoryDTO();
         List<OperationDTO> accountOperationDTOS = accountOperations.getContent().stream().map(op -> bankAccountMapperImpl.fromOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);

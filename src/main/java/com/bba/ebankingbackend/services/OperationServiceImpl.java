@@ -72,7 +72,7 @@ public class OperationServiceImpl implements OperationService{
 	}
 	@Override
     public List<OperationDTO> accountHistory(String accountId){
-        List<Operation> accountOperations = accountOperationRepository.findByBankAccountId(accountId);
+        List<Operation> accountOperations = accountOperationRepository.findByCompteId(accountId);
         return accountOperations.stream().map(op->bankAccountMapperImpl.fromOperation(op)).collect(Collectors.toList());
     }
 
