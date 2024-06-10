@@ -3,9 +3,13 @@ package com.bba.ebankingbackend.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.bba.ebankingbackend.enums.AccountStatus;
+
 import jakarta.persistence.DiscriminatorColumn;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,4 +38,6 @@ public abstract class Compte {
 	private Client client;
 	@OneToMany(mappedBy = "compte")
 	private List<Operation> operations;
+	@Enumerated(value = EnumType.STRING)
+	private AccountStatus status;
 }
