@@ -37,4 +37,5 @@ public class Client {
 	private Adresse adresse;
 	@OneToMany(mappedBy="client")
 	private List<Compte> Comptes;
+	private String email;
 }
