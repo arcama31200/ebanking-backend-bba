@@ -1,5 +1,19 @@
-FROM eclipse-temurin:17.0.8.1_1-jdk-nanoserver-1809
+# Utilisation de l'image de base OpenJDK
+FROM openjdk:17-jdk-slim
+
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
-COPY target/ebank-0.0.1-SNAPSHOT.jar ebank.jar
+
+# Copier uniquement le fichier pom.xml et télécharger les dépendances
+COPY pom.xml .
+RUN ./mvnw dependency:go-offline
+
+# Préparer l'environnement Maven Wrapper
+COPY .mvn .mvn
+COPY mvnw .
+
+# Exposer le port 8080
 EXPOSE 8080
-ENTRYPOINT [ "java", "-jar", "imc.jar"]
+
+# Commande par défaut pour démarrer l'application avec des modifications à chaud
+CMD ["./mvnw", "spring-boot:run"]
