@@ -1,0 +1,14 @@
+project-root/
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── src/
+│   └── pom.xml
+│
+├── frontend/
+│   ├── Dockerfile
+│   ├── src/
+│   ├── package.json
+│   └── angular.json
+│
+└── docker-compose.yml
