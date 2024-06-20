@@ -2,6 +2,7 @@ package com.bba.ebankingbackend.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,19 @@ public class CompteServiceImpl implements CompteService{
 	private AccountOperationRepository accountOperationRepository;
 
 	@Override
-	public CompteCourantDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId)
-			throws CustomerNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public CompteCourantDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException {
+        Client customer=clientRepository.findById(customerId).orElse(null);
+        if(customer==null)
+            throw new CustomerNotFoundException("Customer not found");
+        CompteCourant currentAccount=new CompteCourant();
+        currentAccount.setId(UUID.randomUUID().toString());
+        currentAccount.setDateCreation(new Date());
+        currentAccount.setSolde(initialBalance);
+        currentAccount.setDecouvert(overDraft);
+        currentAccount.setClient(customer);
+        CompteCourant savedBankAccount = compteRepository.save(currentAccount);
+        return bankAccountMapperImpl.fromCompteCourant(savedBankAccount);
+    }
 
 	@Override
 	public CompteEpargneDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId)
