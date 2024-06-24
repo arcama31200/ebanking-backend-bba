@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    # Définir le service backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Monter le répertoire de travail pour permettre le développement à chaud
+      - .:/app
+    ports:
+      # Mappe le port 8080 de l'hôte au port 8080 du conteneur
+      - "8080:8080"
+    # Commande pour démarrer le service Java
+    command: ["./mvnw", "spring-boot:run"]
