@@ -1,16 +1,16 @@
-# backend/docker-compose.yaml
-version: "3.8"
+version: '3.8'
 
 services:
   backend:
+    # Définir le service backend
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
+    volumes:
+      # Monter le répertoire de travail pour permettre le développement à chaud
+      - .:/app
     ports:
-      - "8085:8085"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      # Mappe le port 8080 de l'hôte au port 8080 du conteneur
+      - "8080:8080"
+    # Commande pour démarrer le service Java
+    command: ["./mvnw", "spring-boot:run"]
