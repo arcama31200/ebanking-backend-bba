@@ -39,7 +39,7 @@ public class EbankingBackendBbaApplication {
         return args -> {
            Stream.of("Hassan","Imane","Mohamed").forEach(name->{
                ClientDTO customer=new ClientDTO();
-               customer.setName(name);
+               customer.setNom(name);
                customer.setEmail(name+"@gmail.com");
                clientService.saveCustomer(customer);
            });

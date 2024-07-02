@@ -43,7 +43,7 @@ public class ClientServiceImplTest {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setEmail("belkahla.bilal@gmail.com");
         clientDTO.setId(1L);
-        clientDTO.setName("Bilal");
+        clientDTO.setNom("Bilal");
         Client client = new Client();
         when(bankAccountMapperImpl.fromClientDTO(clientDTO)).thenReturn(client);
         when(clientRepository.save(client)).thenReturn(client);
@@ -67,7 +67,7 @@ public class ClientServiceImplTest {
         when(clientRepository.findAll()).thenReturn(clients);
 
         ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName("John");
+        clientDTO.setNom("John");
         when(bankAccountMapperImpl.fromClient(client)).thenReturn(clientDTO);
 
         // When
@@ -76,7 +76,7 @@ public class ClientServiceImplTest {
         // Then
         assertNotNull(clientDTOs);
         assertEquals(1, clientDTOs.size());
-        assertEquals("John", clientDTOs.get(0).getName());
+        assertEquals("John", clientDTOs.get(0).getNom());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class ClientServiceImplTest {
         // Given
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setId(1L); // Assurez-vous que l'ID est correctement défini si nécessaire
-        clientDTO.setName("John");
+        clientDTO.setNom("John");
 
         Client client = new Client();
         client.setId(1L); // Assurez-vous que l'ID est correctement défini
@@ -116,7 +116,7 @@ public class ClientServiceImplTest {
 
         // Then
         assertNotNull(updatedClientDTO);
-        assertEquals("John", updatedClientDTO.getName());
+        assertEquals("John", updatedClientDTO.getNom());
     }
     @Test
     public void testDeleteClient() {
