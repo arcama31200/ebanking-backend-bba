@@ -26,7 +26,7 @@ public class ClientRestController {
         return clientService.searchCustomers("%"+keyword+"%");
     }
     @GetMapping("/customers/{id}")
-    public ClientDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
+    public ClientDTO getCustomerById(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
         return clientService.getCustomer(customerId);
     }
     @PostMapping("/customers")
