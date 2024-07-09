@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity @Data @AllArgsConstructor @NoArgsConstructor @ToString
-public class User {
+public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String username;
 	private String password;
+	private String email;
 	private String roles;
 }
