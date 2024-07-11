@@ -58,7 +58,7 @@ public class SecurityConfig {
 		return httpSecurity
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(csrf-> csrf.disable())
-				.cors(Customizer.withDefaults())
+				.cors(cors -> cors.configurationSource(configurationSource()))
 				.authorizeHttpRequests(ar -> ar.requestMatchers("/auth/login/**").permitAll())
 				.authorizeHttpRequests(ar-> ar.anyRequest().authenticated())
 				//.httpBasic(Customizer.withDefaults())
