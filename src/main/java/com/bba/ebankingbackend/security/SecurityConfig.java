@@ -45,7 +45,9 @@ public class SecurityConfig {
 		PasswordEncoder passwordEncoder = passwordEncoder();
 		return new InMemoryUserDetailsManager(
 				User.withUsername("bbelkahla").password(passwordEncoder.encode("12345")).authorities("ADMIN", "USER").build(),
-				User.withUsername("mmeussaoui").password(passwordEncoder.encode("67890")).authorities("USER").build()
+				User.withUsername("mmeussaoui").password(passwordEncoder.encode("67890")).authorities("USER").build(),
+				User.withUsername("momo").password(passwordEncoder.encode("azerty")).authorities("USER").build(),
+				User.withUsername("yasmine").password(passwordEncoder.encode("qwerty")).authorities("USER").build()
 		);
 	}
 	@Bean
