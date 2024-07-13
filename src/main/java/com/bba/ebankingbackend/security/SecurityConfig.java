@@ -39,7 +39,7 @@ public class SecurityConfig {
 	
 	@Value("${jwt.secret}")
 	String secretKey;
-	// Simulation de la création d'utilisateurs
+	// Simulation de la création d'utilisateurs //Amelioration : Utiliser JDBC authentication ou UserDetailsService et insérer en base les user et les consulter au moment de l'authentification
 	@Bean
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 		PasswordEncoder passwordEncoder = passwordEncoder();
