@@ -1,5 +1,7 @@
 package com.bba.ebankingbackend.web;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bba.ebankingbackend.dtos.AccountHistoryDTO;
@@ -61,5 +63,14 @@ public class CompteRestController {
                 transferRequestDTO.getAccountSource(),
                 transferRequestDTO.getAccountDestination(),
                 transferRequestDTO.getAmount());
+    }
+    @GetMapping("/accounts/search")
+    public List<CompteDTO> searchAccounts(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        return compteService.searchAccounts(keyword);
+    }
+    @PostMapping("/accounts/add")
+    public ResponseEntity<CompteDTO> addCompte(@RequestBody CompteDTO compteDTO) {
+        CompteDTO createdCompte = compteService.addCompte(compteDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCompte);
     }
 }

@@ -32,6 +32,7 @@ public abstract class Compte {
 	private String id;
 	@Temporal(value = TemporalType.DATE)
 	private Date dateCreation;
+	private String identifiantBancaire;
 	private double solde;
 	private String description;
 	@ManyToOne

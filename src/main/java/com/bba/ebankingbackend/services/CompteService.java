@@ -16,4 +16,6 @@ public interface CompteService {
     CompteDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
     List<CompteDTO> bankAccountList();   
     AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
+	List<CompteDTO> searchAccounts(String keyword);
+	CompteDTO addCompte(CompteDTO compteDTO);
 }

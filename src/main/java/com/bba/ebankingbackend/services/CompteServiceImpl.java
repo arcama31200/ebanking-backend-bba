@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bba.ebankingbackend.dtos.AccountHistoryDTO;
+import com.bba.ebankingbackend.dtos.ClientDTO;
 import com.bba.ebankingbackend.dtos.CompteCourantDTO;
 import com.bba.ebankingbackend.dtos.CompteDTO;
 import com.bba.ebankingbackend.dtos.CompteEpargneDTO;
@@ -115,5 +116,26 @@ public class CompteServiceImpl implements CompteService{
         accountHistoryDTO.setTotalPages(accountOperations.getTotalPages());
         return accountHistoryDTO;
 	}
+	@Override
+    public List<CompteDTO> searchAccounts(String keyword) {
+        List<Compte> comptes = compteRepository.findByIdentifiantBancaireContainsOrClientNomContainsIgnoreCase(keyword, keyword);
+        return comptes.stream().map(bankAccountMapperImpl::toCompteDTO).collect(Collectors.toList());
+    }
+	public CompteDTO addCompte(CompteDTO compteDTO) {
+        Compte compte = mapAndSaveCompte(compteDTO);
+        return bankAccountMapperImpl.toCompteDTO(compte);
+    }
 
+    private Compte mapAndSaveCompte(CompteDTO compteDTO) {
+        Compte compte;
+        if (compteDTO instanceof CompteEpargneDTO) {
+            compte = bankAccountMapperImpl.fromCompteEpargneDTO((CompteEpargneDTO) compteDTO);
+        } else if (compteDTO instanceof CompteCourantDTO) {
+            compte = bankAccountMapperImpl.fromCompteCourantDTO((CompteCourantDTO) compteDTO);
+        } else {
+            throw new IllegalArgumentException("Invalid DTO type");
+        }
+
+        return compteRepository.save(compte);
+    }
 }
